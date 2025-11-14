@@ -350,6 +350,77 @@ This allows you to:
 - Create multi-step automation workflows with voice feedback
 - Build voice-enabled AI agent pipelines
 
+### Output Styles
+
+Claude Code supports custom output styles via `.claude/output-styles/` directory. Output styles allow you to customize how Claude Code responds to your requests. For comprehensive examples, see the [Claude Code Hooks Mastery repository](https://github.com/disler/claude-code-hooks-mastery/tree/main/.claude/output-styles).
+
+#### TTS Summary Output Style
+
+The **TTS Summary** output style provides audio task completion announcements using `elevenlabs-tty-tool`. This creates a voice-enabled assistant experience where Claude Code speaks to you about what it accomplished.
+
+**How it works:**
+1. Claude Code responds normally to all requests
+2. At the end of every response, it adds an audio summary
+3. The summary is synthesized using `elevenlabs-tty-tool synthesize`
+4. You hear what was accomplished without monitoring the terminal
+
+**Example Output Style Configuration:**
+
+Create `.claude/output-styles/tts-summary.md`:
+
+```markdown
+---
+name: TTS Summary
+description: Audio task completion announcements with TTS
+---
+
+# TTS Summary Output Style
+
+You are Claude Code with an experimental TTS announcement feature designed to communicate directly with the user about what you've accomplished.
+
+## Standard Behavior
+Respond normally to all user requests, using your full capabilities for:
+- Code generation and editing
+- File operations
+- Running commands
+- Analysis and explanations
+- All standard Claude Code features
+
+## Critical Addition: Audio Task Summary
+
+**At the very END of EVERY response**, you MUST provide an audio summary for the user and run a Bash tool:
+
+```bash
+elevenlabs-tty-tool synthesize "SUMMARY_TO_THE_USER"
+```
+
+## Important Rules
+
+- ALWAYS include the audio summary, even for simple queries
+- ALWAYS suggest 2-3 relevant next steps after task completion
+- Report task completion status with technical precision
+- Use efficient, direct language - no conversational elaboration
+- Focus on specifications achieved and functionality delivered
+- Report as status update, not personal communication
+- Execute the command using the Bash tool, DO NOT show it on the CLI
+```
+
+**Activate the output style:**
+```bash
+# In Claude Code CLI
+/output-style
+# Select "TTS Summary" from the list
+```
+
+**Benefits:**
+- ✅ Audio notifications for completed tasks
+- ✅ Stay informed without watching the terminal
+- ✅ Natural, conversational feedback
+- ✅ Perfect for long-running tasks or multi-step workflows
+- ✅ Voice-enabled AI assistant experience
+
+**Note:** This feature requires `elevenlabs-tty-tool` to be installed and configured with your API key.
+
 ## Library Usage
 
 Use `elevenlabs-tty-tool` as a Python library in your projects:
@@ -435,6 +506,7 @@ elevenlabs-tty-tool/
 - **Python SDK**: https://github.com/elevenlabs/elevenlabs-python
 - **Voice Library**: https://elevenlabs.io/voice-library
 - **Get API Key**: https://elevenlabs.io/app/settings/api-keys
+- **Claude Code Hooks Mastery**: https://github.com/disler/claude-code-hooks-mastery - Comprehensive guide to Claude Code hooks and output styles
 
 ## License
 
