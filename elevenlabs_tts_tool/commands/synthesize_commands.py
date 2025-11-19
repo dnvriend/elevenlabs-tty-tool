@@ -10,10 +10,10 @@ from pathlib import Path
 
 import click
 
-from elevenlabs_tty_tool.core.client import get_client
-from elevenlabs_tty_tool.core.synthesize import play_speech, read_from_stdin, save_speech
-from elevenlabs_tty_tool.models import DEFAULT_MODEL, get_deprecation_warning, validate_model
-from elevenlabs_tty_tool.voices import VoiceManager
+from elevenlabs_tts_tool.core.client import get_client
+from elevenlabs_tts_tool.core.synthesize import play_speech, read_from_stdin, save_speech
+from elevenlabs_tts_tool.models import DEFAULT_MODEL, get_deprecation_warning, validate_model
+from elevenlabs_tts_tool.voices import VoiceManager
 
 
 @click.command()

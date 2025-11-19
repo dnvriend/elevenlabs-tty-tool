@@ -1,10 +1,10 @@
-"""Tests for elevenlabs_tty_tool.utils module.
+"""Tests for elevenlabs_tts_tool.utils module.
 
 Note: This code was generated with assistance from AI coding tools
 and has been reviewed and tested by a human.
 """
 
-from elevenlabs_tty_tool.utils import get_greeting
+from elevenlabs_tts_tool.utils import get_greeting
 
 
 def test_get_greeting() -> None:

@@ -1,8 +1,8 @@
-# elevenlabs-tty-tool - Developer Guide
+# elevenlabs-tts-tool - Developer Guide
 
 ## Overview
 
-`elevenlabs-tty-tool` is a professional command-line tool for ElevenLabs text-to-speech synthesis. Built with Python 3.13+, uv, mise, and click, it provides both CLI and library interfaces for TTS generation.
+`elevenlabs-tts-tool` is a professional command-line tool for ElevenLabs text-to-speech synthesis. Built with Python 3.13+, uv, mise, and click, it provides both CLI and library interfaces for TTS generation.
 
 **Tech Stack:**
 - Python 3.13+
@@ -16,8 +16,8 @@
 The project follows a clean separation of concerns with modular architecture:
 
 ```
-elevenlabs-tty-tool/
-├── elevenlabs_tty_tool/
+elevenlabs-tts-tool/
+├── elevenlabs_tts_tool/
 │   ├── __init__.py              # Public API exports for library usage
 │   ├── cli.py                   # CLI entry point (Click group)
 │   ├── voices.py                # Voice management (VoiceManager, VoiceProfile)
@@ -131,7 +131,7 @@ Convert text to speech with flexible input/output options.
 
 **Signature:**
 ```bash
-elevenlabs-tty-tool synthesize [TEXT] [OPTIONS]
+elevenlabs-tts-tool synthesize [TEXT] [OPTIONS]
 ```
 
 **Arguments:**
@@ -147,22 +147,22 @@ elevenlabs-tty-tool synthesize [TEXT] [OPTIONS]
 **Examples:**
 ```bash
 # Play through speakers
-elevenlabs-tty-tool synthesize "Hello world"
+elevenlabs-tts-tool synthesize "Hello world"
 
 # Use different voice
-elevenlabs-tty-tool synthesize "Hello" --voice adam
+elevenlabs-tts-tool synthesize "Hello" --voice adam
 
 # Use specific model
-elevenlabs-tty-tool synthesize "Hello" --model eleven_multilingual_v2
+elevenlabs-tts-tool synthesize "Hello" --model eleven_multilingual_v2
 
 # Emotional expression (requires eleven_v3)
-elevenlabs-tty-tool synthesize "[happy] Welcome!" --model eleven_v3
+elevenlabs-tts-tool synthesize "[happy] Welcome!" --model eleven_v3
 
 # Read from stdin
-echo "Text" | elevenlabs-tty-tool synthesize --stdin
+echo "Text" | elevenlabs-tts-tool synthesize --stdin
 
 # Save to file
-elevenlabs-tty-tool synthesize "Text" --output speech.mp3
+elevenlabs-tts-tool synthesize "Text" --output speech.mp3
 ```
 
 ### list-voices
@@ -171,7 +171,7 @@ List all available voices with characteristics.
 
 **Signature:**
 ```bash
-elevenlabs-tty-tool list-voices
+elevenlabs-tts-tool list-voices
 ```
 
 **Output Format:**
@@ -188,11 +188,11 @@ Total: 42 voices available
 **Examples:**
 ```bash
 # List all voices
-elevenlabs-tty-tool list-voices
+elevenlabs-tts-tool list-voices
 
 # Filter by characteristics
-elevenlabs-tty-tool list-voices | grep British
-elevenlabs-tty-tool list-voices | grep "female.*young"
+elevenlabs-tts-tool list-voices | grep British
+elevenlabs-tts-tool list-voices | grep "female.*young"
 ```
 
 ### update-voices
@@ -201,24 +201,24 @@ Update voice lookup table from ElevenLabs API.
 
 **Signature:**
 ```bash
-elevenlabs-tty-tool update-voices [OPTIONS]
+elevenlabs-tts-tool update-voices [OPTIONS]
 ```
 
 **Options:**
-- `--output, -o PATH` - Output file path (default: `~/.config/elevenlabs-tty-tool/voices_lookup.json`)
+- `--output, -o PATH` - Output file path (default: `~/.config/elevenlabs-tts-tool/voices_lookup.json`)
 
 **Examples:**
 ```bash
 # Update default voice lookup (user config directory)
-elevenlabs-tty-tool update-voices
+elevenlabs-tts-tool update-voices
 
 # Save to custom location
-elevenlabs-tty-tool update-voices --output custom_voices.json
+elevenlabs-tts-tool update-voices --output custom_voices.json
 ```
 
 **Behavior:**
 - Fetches all premade voices from ElevenLabs API
-- Saves to user config directory by default (`~/.config/elevenlabs-tty-tool/`)
+- Saves to user config directory by default (`~/.config/elevenlabs-tts-tool/`)
 - Creates config directory if it doesn't exist
 - Updates take precedence over package default
 
@@ -228,7 +228,7 @@ List all available ElevenLabs TTS models with characteristics.
 
 **Signature:**
 ```bash
-elevenlabs-tty-tool list-models
+elevenlabs-tts-tool list-models
 ```
 
 **Output Format:**
@@ -261,14 +261,14 @@ Legacy Models (Deprecated):
 **Examples:**
 ```bash
 # List all models
-elevenlabs-tty-tool list-models
+elevenlabs-tts-tool list-models
 
 # Filter by status
-elevenlabs-tty-tool list-models | grep stable
-elevenlabs-tty-tool list-models | grep deprecated
+elevenlabs-tts-tool list-models | grep stable
+elevenlabs-tts-tool list-models | grep deprecated
 
 # Find specific features
-elevenlabs-tty-tool list-models | grep -i "ultra-low"
+elevenlabs-tts-tool list-models | grep -i "ultra-low"
 ```
 
 ### pricing
@@ -277,7 +277,7 @@ Display ElevenLabs pricing tiers and features.
 
 **Signature:**
 ```bash
-elevenlabs-tty-tool pricing
+elevenlabs-tts-tool pricing
 ```
 
 **Output Information:**
@@ -293,11 +293,11 @@ elevenlabs-tty-tool pricing
 **Examples:**
 ```bash
 # View full pricing table
-elevenlabs-tty-tool pricing
+elevenlabs-tts-tool pricing
 
 # Find specific tier information
-elevenlabs-tty-tool pricing | grep Creator
-elevenlabs-tty-tool pricing | grep "44.1kHz PCM"
+elevenlabs-tts-tool pricing | grep Creator
+elevenlabs-tts-tool pricing | grep "44.1kHz PCM"
 ```
 
 **Key Insights:**
@@ -311,7 +311,7 @@ Display subscription and usage information.
 
 **Signature:**
 ```bash
-elevenlabs-tty-tool info [OPTIONS]
+elevenlabs-tts-tool info [OPTIONS]
 ```
 
 **Options:**
@@ -329,13 +329,13 @@ elevenlabs-tty-tool info [OPTIONS]
 **Examples:**
 ```bash
 # View subscription with last 7 days of usage
-elevenlabs-tty-tool info
+elevenlabs-tts-tool info
 
 # View last 30 days of usage
-elevenlabs-tty-tool info --days 30
+elevenlabs-tts-tool info --days 30
 
 # Quick quota check (1 day)
-elevenlabs-tty-tool info --days 1
+elevenlabs-tts-tool info --days 1
 ```
 
 **Use Cases:**
@@ -365,10 +365,10 @@ ElevenLabs v3 model (`eleven_v3`) supports **Audio Tags** for emotional expressi
 **Usage:**
 ```bash
 # Basic emotion (requires eleven_v3 model)
-elevenlabs-tty-tool synthesize "[happy] Welcome to our service!" --model eleven_v3
+elevenlabs-tts-tool synthesize "[happy] Welcome to our service!" --model eleven_v3
 
 # Multiple emotions in sequence
-elevenlabs-tty-tool synthesize "[excited] Great news! [cheerfully] Your project is approved!" --model eleven_v3
+elevenlabs-tts-tool synthesize "[excited] Great news! [cheerfully] Your project is approved!" --model eleven_v3
 ```
 
 **Best Practices:**
@@ -389,13 +389,13 @@ Add natural pauses using SSML `<break>` tags.
 **Examples:**
 ```bash
 # 1-second pause
-elevenlabs-tty-tool synthesize "Welcome <break time=\"1.0s\" /> to our service."
+elevenlabs-tts-tool synthesize "Welcome <break time=\"1.0s\" /> to our service."
 
 # Multiple pauses
-elevenlabs-tty-tool synthesize "Point one <break time=\"0.5s\" /> Point two <break time=\"0.5s\" /> Point three."
+elevenlabs-tts-tool synthesize "Point one <break time=\"0.5s\" /> Point two <break time=\"0.5s\" /> Point three."
 
 # Combine with emotions (requires eleven_v3)
-elevenlabs-tty-tool synthesize "[happy] Hello! <break time=\"0.5s\" /> [cheerfully] How are you?" --model eleven_v3
+elevenlabs-tts-tool synthesize "[happy] Hello! <break time=\"0.5s\" /> [cheerfully] How are you?" --model eleven_v3
 ```
 
 **Limitations:**
@@ -463,34 +463,34 @@ For detailed free tier information: [references/free-tier.md](references/free-ti
 
 ## Claude Code Integration
 
-Use `elevenlabs-tty-tool` as notification system for Claude Code hooks.
+Use `elevenlabs-tts-tool` as notification system for Claude Code hooks.
 
 ### Use Cases
 
 **1. Task Completion Alerts**
 ```bash
 # After long-running task
-elevenlabs-tty-tool synthesize "[excited] Task completed successfully!"
+elevenlabs-tts-tool synthesize "[excited] Task completed successfully!"
 ```
 
 **2. Error Notifications**
 ```bash
 # On build failure
-elevenlabs-tty-tool synthesize "[nervous] Error detected. Please check output."
+elevenlabs-tts-tool synthesize "[nervous] Error detected. Please check output."
 ```
 
 **3. Custom Workflows**
 ```bash
 # Shell script integration
-make build && elevenlabs-tty-tool synthesize "[cheerfully] Build successful!" || \
-    elevenlabs-tty-tool synthesize "[sad] Build failed. Check logs."
+make build && elevenlabs-tts-tool synthesize "[cheerfully] Build successful!" || \
+    elevenlabs-tts-tool synthesize "[sad] Build failed. Check logs."
 ```
 
 **4. Multi-Tool Integration**
 ```bash
 # Combine with other CLI tools
 gemini-google-search-tool query "AI news" | \
-    elevenlabs-tty-tool synthesize --stdin --voice charlotte --output news.mp3
+    elevenlabs-tts-tool synthesize --stdin --voice charlotte --output news.mp3
 ```
 
 ### Hook Configuration
@@ -502,11 +502,11 @@ Create hooks in `~/.config/claude-code/hooks.json`:
   "hooks": {
     "after_command": {
       "type": "bash",
-      "command": "elevenlabs-tty-tool synthesize \"[happy] Task completed!\" --voice rachel"
+      "command": "elevenlabs-tts-tool synthesize \"[happy] Task completed!\" --voice rachel"
     },
     "on_error": {
       "type": "bash",
-      "command": "elevenlabs-tty-tool synthesize \"[nervous] Error occurred!\" --voice adam"
+      "command": "elevenlabs-tts-tool synthesize \"[nervous] Error occurred!\" --voice adam"
     }
   }
 }
@@ -523,8 +523,8 @@ Create hooks in `~/.config/claude-code/hooks.json`:
 The tool can be imported as a Python library:
 
 ```python
-from elevenlabs_tty_tool import get_client, play_speech, save_speech
-from elevenlabs_tty_tool import VoiceManager, VoiceProfile
+from elevenlabs_tts_tool import get_client, play_speech, save_speech
+from elevenlabs_tts_tool import VoiceManager, VoiceProfile
 from pathlib import Path
 
 # Initialize client
@@ -547,7 +547,7 @@ for name, profile in manager.list_voices():
 
 ### Public API
 
-**Exported from `elevenlabs_tty_tool`:**
+**Exported from `elevenlabs_tts_tool`:**
 - `get_client()` - Initialize ElevenLabs client
 - `play_speech(client, text, voice_id)` - Play through speakers
 - `save_speech(client, text, voice_id, output_path)` - Save to file
@@ -569,7 +569,7 @@ uv run pytest tests/ -v
 uv run pytest tests/test_voices.py
 
 # With coverage
-uv run pytest tests/ --cov=elevenlabs_tty_tool
+uv run pytest tests/ --cov=elevenlabs_tts_tool
 ```
 
 ### Test Structure
@@ -604,16 +604,16 @@ The `voices_lookup.json` file contains 42 curated ElevenLabs premium voices with
 - Voice IDs for API calls
 
 **Voice lookup locations** (checked in order):
-1. User config: `~/.config/elevenlabs-tty-tool/voices_lookup.json` (if exists)
+1. User config: `~/.config/elevenlabs-tts-tool/voices_lookup.json` (if exists)
 2. Package default: Bundled `voices_lookup.json` (fallback)
 
 **Update voice table:**
 ```bash
-# Updates ~/.config/elevenlabs-tty-tool/voices_lookup.json
-elevenlabs-tty-tool update-voices
+# Updates ~/.config/elevenlabs-tts-tool/voices_lookup.json
+elevenlabs-tts-tool update-voices
 
 # Save to custom location
-elevenlabs-tty-tool update-voices --output /path/to/voices.json
+elevenlabs-tts-tool update-voices --output /path/to/voices.json
 ```
 
 This design allows:

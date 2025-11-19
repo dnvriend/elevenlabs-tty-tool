@@ -7,7 +7,7 @@ and has been reviewed and tested by a human.
 
 import click
 
-from elevenlabs_tty_tool.models import AVAILABLE_MODELS, DEFAULT_MODEL
+from elevenlabs_tts_tool.models import AVAILABLE_MODELS, DEFAULT_MODEL
 
 
 @click.command()

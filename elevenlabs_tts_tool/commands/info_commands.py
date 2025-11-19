@@ -10,7 +10,7 @@ from datetime import datetime
 
 import click
 
-from elevenlabs_tty_tool.core.client import get_client
+from elevenlabs_tts_tool.core.client import get_client
 
 
 @click.command()

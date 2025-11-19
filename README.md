@@ -1,4 +1,4 @@
-# elevenlabs-tty-tool
+# elevenlabs-tts-tool
 
 [![Python Version](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -39,9 +39,9 @@ A command-line tool for ElevenLabs text-to-speech synthesis with human-friendly 
 
 [ElevenLabs](https://elevenlabs.io) provides cutting-edge AI voice synthesis technology that generates natural-sounding speech from text. Their Turbo v2.5 model offers fast, high-quality text-to-speech with a wide variety of realistic voices.
 
-### What is elevenlabs-tty-tool?
+### What is elevenlabs-tts-tool?
 
-`elevenlabs-tty-tool` transforms the ElevenLabs API into a professional, composable CLI tool designed for:
+`elevenlabs-tts-tool` transforms the ElevenLabs API into a professional, composable CLI tool designed for:
 
 - **Agent-Friendly Design**: Structured commands and error messages enable AI agents (like Claude Code) to reason and act effectively in ReAct loops
 - **Composable Architecture**: JSON output to stdout, logs to stderr - perfect for piping and automation
@@ -104,8 +104,8 @@ sudo yum install ffmpeg      # RedHat/CentOS
 
 ```bash
 # Clone the repository
-git clone https://github.com/dnvriend/elevenlabs-tty-tool.git
-cd elevenlabs-tty-tool
+git clone https://github.com/dnvriend/elevenlabs-tts-tool.git
+cd elevenlabs-tts-tool
 
 # Install globally with uv
 uv tool install .
@@ -114,7 +114,7 @@ uv tool install .
 ### Verify installation
 
 ```bash
-elevenlabs-tty-tool --version
+elevenlabs-tts-tool --version
 ```
 
 ## Configuration
@@ -139,27 +139,27 @@ Convert text to speech with various options:
 
 ```bash
 # Basic usage - play through speakers
-elevenlabs-tty-tool synthesize "Hello world"
+elevenlabs-tts-tool synthesize "Hello world"
 
 # Use a different voice
-elevenlabs-tty-tool synthesize "Hello world" --voice adam
-elevenlabs-tty-tool synthesize "Cheerio mate" --voice charlotte
+elevenlabs-tts-tool synthesize "Hello world" --voice adam
+elevenlabs-tts-tool synthesize "Cheerio mate" --voice charlotte
 
 # Read from stdin
-echo "Hello from stdin" | elevenlabs-tty-tool synthesize --stdin
-cat article.txt | elevenlabs-tty-tool synthesize --stdin
+echo "Hello from stdin" | elevenlabs-tts-tool synthesize --stdin
+cat article.txt | elevenlabs-tts-tool synthesize --stdin
 
 # Save to MP3 file (default format)
-elevenlabs-tty-tool synthesize "Save this" --output speech.mp3
+elevenlabs-tts-tool synthesize "Save this" --output speech.mp3
 
 # Save to WAV file (PCM format)
-elevenlabs-tty-tool synthesize "Save this" --output speech.wav --format pcm_24000
+elevenlabs-tts-tool synthesize "Save this" --output speech.wav --format pcm_24000
 
 # Lower quality MP3 (smaller file size)
-elevenlabs-tty-tool synthesize "Save this" --output speech.mp3 --format mp3_22050_32
+elevenlabs-tts-tool synthesize "Save this" --output speech.mp3 --format mp3_22050_32
 
 # Combine options
-cat blog-post.txt | elevenlabs-tty-tool synthesize --stdin \
+cat blog-post.txt | elevenlabs-tts-tool synthesize --stdin \
     --voice rachel --output narration.mp3 --format mp3_44100_128
 ```
 
@@ -184,13 +184,13 @@ The `--format` option controls audio quality and file size. Different formats re
 **Examples:**
 ```bash
 # Default MP3 (works on all tiers)
-elevenlabs-tty-tool synthesize "Text" --output audio.mp3
+elevenlabs-tts-tool synthesize "Text" --output audio.mp3
 
 # High-quality WAV (Pro tier required)
-elevenlabs-tty-tool synthesize "Text" --output audio.wav --format pcm_44100
+elevenlabs-tts-tool synthesize "Text" --output audio.wav --format pcm_44100
 
 # Lower bandwidth (works on all tiers)
-elevenlabs-tty-tool synthesize "Text" --output audio.mp3 --format mp3_22050_32
+elevenlabs-tts-tool synthesize "Text" --output audio.mp3 --format mp3_22050_32
 ```
 
 ### List Voices
@@ -199,12 +199,12 @@ Discover available voices with characteristics:
 
 ```bash
 # List all 42 available voices
-elevenlabs-tty-tool list-voices
+elevenlabs-tts-tool list-voices
 
 # Find specific voices with grep
-elevenlabs-tty-tool list-voices | grep British
-elevenlabs-tty-tool list-voices | grep "female.*young"
-elevenlabs-tty-tool list-voices | grep male
+elevenlabs-tts-tool list-voices | grep British
+elevenlabs-tts-tool list-voices | grep "female.*young"
+elevenlabs-tts-tool list-voices | grep male
 ```
 
 **Popular Voices:**
@@ -220,14 +220,14 @@ elevenlabs-tty-tool list-voices | grep male
 Update the voice lookup table from ElevenLabs API:
 
 ```bash
-# Update default voice lookup (saves to ~/.config/elevenlabs-tty-tool/)
-elevenlabs-tty-tool update-voices
+# Update default voice lookup (saves to ~/.config/elevenlabs-tts-tool/)
+elevenlabs-tts-tool update-voices
 
 # Save to custom location
-elevenlabs-tty-tool update-voices --output custom_voices.json
+elevenlabs-tts-tool update-voices --output custom_voices.json
 ```
 
-The voice lookup is stored in `~/.config/elevenlabs-tty-tool/voices_lookup.json` and takes precedence over the package default.
+The voice lookup is stored in `~/.config/elevenlabs-tts-tool/voices_lookup.json` and takes precedence over the package default.
 
 ### Model Selection
 
@@ -237,7 +237,7 @@ ElevenLabs offers multiple TTS models optimized for different use cases. Use the
 
 ```bash
 # Show all available models with characteristics
-elevenlabs-tty-tool list-models
+elevenlabs-tts-tool list-models
 ```
 
 #### Current Generation Models
@@ -249,7 +249,7 @@ elevenlabs-tty-tool list-models
 - **Best for:** General-purpose TTS
 
 ```bash
-elevenlabs-tty-tool synthesize "Hello world" --model eleven_turbo_v2_5
+elevenlabs-tts-tool synthesize "Hello world" --model eleven_turbo_v2_5
 ```
 
 **Eleven Multilingual v2** - `eleven_multilingual_v2`
@@ -259,7 +259,7 @@ elevenlabs-tty-tool synthesize "Hello world" --model eleven_turbo_v2_5
 - **Best for:** Professional content, e-learning
 
 ```bash
-elevenlabs-tty-tool synthesize "Professional narration" --model eleven_multilingual_v2
+elevenlabs-tts-tool synthesize "Professional narration" --model eleven_multilingual_v2
 ```
 
 **Eleven Flash v2.5** - `eleven_flash_v2_5`
@@ -269,7 +269,7 @@ elevenlabs-tty-tool synthesize "Professional narration" --model eleven_multiling
 - **Best for:** Real-time agents, bulk processing
 
 ```bash
-elevenlabs-tty-tool synthesize "Quick response" --model eleven_flash_v2_5
+elevenlabs-tts-tool synthesize "Quick response" --model eleven_flash_v2_5
 ```
 
 **Eleven v3 (Alpha)** - `eleven_v3`
@@ -280,26 +280,26 @@ elevenlabs-tty-tool synthesize "Quick response" --model eleven_flash_v2_5
 - **Note:** Supports emotional tags (`[happy]`, `[sad]`, etc.)
 
 ```bash
-elevenlabs-tty-tool synthesize "[happy] Welcome!" --model eleven_v3
+elevenlabs-tts-tool synthesize "[happy] Welcome!" --model eleven_v3
 ```
 
 #### Model Selection Examples
 
 ```bash
 # Use highest quality model
-elevenlabs-tty-tool synthesize "Professional presentation" \
+elevenlabs-tts-tool synthesize "Professional presentation" \
     --voice rachel --model eleven_multilingual_v2
 
 # Ultra-fast real-time generation
-elevenlabs-tty-tool synthesize "Quick notification" \
+elevenlabs-tts-tool synthesize "Quick notification" \
     --voice adam --model eleven_flash_v2_5
 
 # Emotional expression (requires v3)
-elevenlabs-tty-tool synthesize "[excited] Congratulations!" \
+elevenlabs-tts-tool synthesize "[excited] Congratulations!" \
     --voice charlotte --model eleven_v3 --output celebration.mp3
 
 # Pipe with model selection
-echo "Article content" | elevenlabs-tty-tool synthesize --stdin \
+echo "Article content" | elevenlabs-tts-tool synthesize --stdin \
     --voice daniel --model eleven_multilingual_v2 --output article.mp3
 ```
 
@@ -321,13 +321,13 @@ View your ElevenLabs subscription status and usage statistics:
 
 ```bash
 # View subscription info with last 7 days of usage
-elevenlabs-tty-tool info
+elevenlabs-tts-tool info
 
 # View last 30 days of usage
-elevenlabs-tty-tool info --days 30
+elevenlabs-tts-tool info --days 30
 
 # Quick quota check
-elevenlabs-tty-tool info --days 1
+elevenlabs-tts-tool info --days 1
 ```
 
 **Information Displayed:**
@@ -394,13 +394,13 @@ ElevenLabs v3 model (`eleven_v3`) supports emotional tags for expressive speech:
 
 ```bash
 # Happy greeting (requires eleven_v3 model)
-elevenlabs-tty-tool synthesize "[happy] Welcome! We're excited to have you here." --model eleven_v3
+elevenlabs-tts-tool synthesize "[happy] Welcome! We're excited to have you here." --model eleven_v3
 
 # Sad message
-elevenlabs-tty-tool synthesize "[sad] I'm sorry to hear that..." --model eleven_v3
+elevenlabs-tts-tool synthesize "[sad] I'm sorry to hear that..." --model eleven_v3
 
 # Excited announcement
-elevenlabs-tty-tool synthesize "[excited] Amazing news! Your project is approved!" --model eleven_v3
+elevenlabs-tts-tool synthesize "[excited] Amazing news! Your project is approved!" --model eleven_v3
 ```
 
 **Available Emotions:** `[happy]`, `[excited]`, `[sad]`, `[angry]`, `[nervous]`, `[curious]`, `[cheerfully]`, `[playfully]`, `[mischievously]`, `[resigned tone]`, `[flatly]`, `[deadpan]`
@@ -415,10 +415,10 @@ Add natural pauses using SSML break tags:
 
 ```bash
 # Add 1-second pause
-elevenlabs-tty-tool synthesize "Welcome <break time=\"1.0s\" /> to our service."
+elevenlabs-tts-tool synthesize "Welcome <break time=\"1.0s\" /> to our service."
 
 # Multiple pauses
-elevenlabs-tty-tool synthesize "First point <break time=\"0.5s\" /> Second point <break time=\"0.5s\" /> Third point."
+elevenlabs-tts-tool synthesize "First point <break time=\"0.5s\" /> Second point <break time=\"0.5s\" /> Third point."
 ```
 
 **Note:** Keep pauses under 3 seconds and limit to 2-4 breaks per generation for best results.
@@ -427,7 +427,7 @@ elevenlabs-tty-tool synthesize "First point <break time=\"0.5s\" /> Second point
 
 ```bash
 # Emotional speech with pauses
-elevenlabs-tty-tool synthesize "[happy] Good morning! <break time=\"0.5s\" /> [cheerfully] I hope you're having a great day."
+elevenlabs-tts-tool synthesize "[happy] Good morning! <break time=\"0.5s\" /> [cheerfully] I hope you're having a great day."
 ```
 
 For comprehensive documentation on emotions, pauses, SSML, and voice settings, see:
@@ -458,7 +458,7 @@ For detailed free tier information and upgrade options, see:
 
 ## Claude Code Integration
 
-Use `elevenlabs-tty-tool` as a notification system for Claude Code hooks to get audio alerts when tasks complete.
+Use `elevenlabs-tts-tool` as a notification system for Claude Code hooks to get audio alerts when tasks complete.
 
 ### Setup Hook
 
@@ -469,11 +469,11 @@ Create a notification hook in `~/.config/claude-code/hooks.json`:
   "hooks": {
     "after_command": {
       "type": "bash",
-      "command": "elevenlabs-tty-tool synthesize \"[happy] Task completed successfully!\" --voice rachel"
+      "command": "elevenlabs-tts-tool synthesize \"[happy] Task completed successfully!\" --voice rachel"
     },
     "on_error": {
       "type": "bash",
-      "command": "elevenlabs-tty-tool synthesize \"[nervous] Error detected. Please check the output.\" --voice adam"
+      "command": "elevenlabs-tts-tool synthesize \"[nervous] Error detected. Please check the output.\" --voice adam"
     }
   }
 }
@@ -484,27 +484,27 @@ Create a notification hook in `~/.config/claude-code/hooks.json`:
 **Task Completion Alerts:**
 ```bash
 # After long-running build
-elevenlabs-tty-tool synthesize "[excited] Build completed!" --voice rachel
+elevenlabs-tts-tool synthesize "[excited] Build completed!" --voice rachel
 ```
 
 **Error Notifications:**
 ```bash
 # On test failure
-elevenlabs-tty-tool synthesize "[sad] Tests failed. Please review." --voice adam
+elevenlabs-tts-tool synthesize "[sad] Tests failed. Please review." --voice adam
 ```
 
 **Custom Workflows:**
 ```bash
 # In your shell scripts
-make build && elevenlabs-tty-tool synthesize "[cheerfully] Build successful!" || \
-    elevenlabs-tty-tool synthesize "[nervous] Build failed!"
+make build && elevenlabs-tts-tool synthesize "[cheerfully] Build successful!" || \
+    elevenlabs-tts-tool synthesize "[nervous] Build failed!"
 ```
 
 **Integration with Other Tools:**
 ```bash
 # Combine with gemini-google-search-tool
 gemini-google-search-tool query "Latest AI news" | \
-    elevenlabs-tty-tool synthesize --stdin --voice charlotte --output news-summary.mp3
+    elevenlabs-tts-tool synthesize --stdin --voice charlotte --output news-summary.mp3
 ```
 
 This allows you to:
@@ -519,12 +519,12 @@ Claude Code supports custom output styles via `.claude/output-styles/` directory
 
 #### TTS Summary Output Style
 
-The **TTS Summary** output style provides audio task completion announcements using `elevenlabs-tty-tool`. This creates a voice-enabled assistant experience where Claude Code speaks to you about what it accomplished.
+The **TTS Summary** output style provides audio task completion announcements using `elevenlabs-tts-tool`. This creates a voice-enabled assistant experience where Claude Code speaks to you about what it accomplished.
 
 **How it works:**
 1. Claude Code responds normally to all requests
 2. At the end of every response, it adds an audio summary
-3. The summary is synthesized using `elevenlabs-tty-tool synthesize`
+3. The summary is synthesized using `elevenlabs-tts-tool synthesize`
 4. You hear what was accomplished without monitoring the terminal
 
 **Example Output Style Configuration:**
@@ -554,7 +554,7 @@ Respond normally to all user requests, using your full capabilities for:
 **At the very END of EVERY response**, you MUST provide an audio summary for the user and run a Bash tool:
 
 ```bash
-elevenlabs-tty-tool synthesize "SUMMARY_TO_THE_USER"
+elevenlabs-tts-tool synthesize "SUMMARY_TO_THE_USER"
 ```
 
 ## Important Rules
@@ -582,16 +582,16 @@ elevenlabs-tty-tool synthesize "SUMMARY_TO_THE_USER"
 - ✅ Perfect for long-running tasks or multi-step workflows
 - ✅ Voice-enabled AI assistant experience
 
-**Note:** This feature requires `elevenlabs-tty-tool` to be installed and configured with your API key.
+**Note:** This feature requires `elevenlabs-tts-tool` to be installed and configured with your API key.
 
 ### Voice-Enabled Workflow with SuperWhisper
 
-Combine `elevenlabs-tty-tool` with [Claude Code](https://www.anthropic.com/claude/code) and [SuperWhisper](https://superwhisper.com/) for a complete voice-enabled development workflow.
+Combine `elevenlabs-tts-tool` with [Claude Code](https://www.anthropic.com/claude/code) and [SuperWhisper](https://superwhisper.com/) for a complete voice-enabled development workflow.
 
 **The Power Trio:**
 1. **SuperWhisper** - Voice input: Speak commands to Claude Code
 2. **Claude Code** - AI assistance: Execute tasks and generate code
-3. **elevenlabs-tty-tool** - Voice output: Get audio notifications when tasks complete
+3. **elevenlabs-tts-tool** - Voice output: Get audio notifications when tasks complete
 
 **Why This Works:**
 
@@ -614,11 +614,11 @@ Speaking is **faster than typing**. Instead of typing long commands or descripti
 ```bash
 # 1. Speak to SuperWhisper: "Run the test suite and let me know when it's done"
 # 2. Claude Code executes: pytest tests/
-# 3. elevenlabs-tty-tool announces: "[happy] All tests passed! 47 tests completed."
+# 3. elevenlabs-tts-tool announces: "[happy] All tests passed! 47 tests completed."
 
 # 4. Speak: "Now build the Docker image and push to registry"
 # 5. Claude Code executes: docker build && docker push
-# 6. elevenlabs-tty-tool announces: "[excited] Docker image built and pushed successfully!"
+# 6. elevenlabs-tts-tool announces: "[excited] Docker image built and pushed successfully!"
 ```
 
 **Setup:**
@@ -638,11 +638,11 @@ Speaking is **faster than typing**. Instead of typing long commands or descripti
 
 ## Library Usage
 
-Use `elevenlabs-tty-tool` as a Python library in your projects:
+Use `elevenlabs-tts-tool` as a Python library in your projects:
 
 ```python
-from elevenlabs_tty_tool import get_client, play_speech, save_speech
-from elevenlabs_tty_tool import VoiceManager
+from elevenlabs_tts_tool import get_client, play_speech, save_speech
+from elevenlabs_tts_tool import VoiceManager
 from pathlib import Path
 
 # Initialize client
@@ -669,8 +669,8 @@ for name, profile in voice_manager.list_voices():
 
 ```bash
 # Clone repository
-git clone https://github.com/dnvriend/elevenlabs-tty-tool.git
-cd elevenlabs-tty-tool
+git clone https://github.com/dnvriend/elevenlabs-tts-tool.git
+cd elevenlabs-tts-tool
 
 # Install dependencies
 make install
@@ -696,8 +696,8 @@ make clean            # Remove build artifacts
 ### Project Structure
 
 ```
-elevenlabs-tty-tool/
-├── elevenlabs_tty_tool/
+elevenlabs-tts-tool/
+├── elevenlabs_tts_tool/
 │   ├── __init__.py              # Public API exports
 │   ├── cli.py                   # CLI entry point
 │   ├── voices.py                # Voice management

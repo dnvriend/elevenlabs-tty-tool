@@ -7,7 +7,7 @@ and has been reviewed and tested by a human.
 
 import pytest
 
-from elevenlabs_tty_tool.models import (
+from elevenlabs_tts_tool.models import (
     AVAILABLE_MODELS,
     DEFAULT_MODEL,
     get_deprecation_warning,

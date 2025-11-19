@@ -14,7 +14,7 @@ format: ## Format code with ruff
 	uv run ruff format .
 
 typecheck: ## Run type checking with mypy
-	uv run mypy elevenlabs_tty_tool
+	uv run mypy elevenlabs_tts_tool
 
 test: ## Run tests
 	uv run pytest tests/
@@ -28,8 +28,8 @@ clean: ## Remove build artifacts and cache
 	find . -type d -name __pycache__ -exec rm -rf {} +
 	find . -type f -name '*.pyc' -delete
 
-run: ## Run elevenlabs-tty-tool (usage: make run ARGS="...")
-	uv run elevenlabs-tty-tool $(ARGS)
+run: ## Run elevenlabs-tts-tool (usage: make run ARGS="...")
+	uv run elevenlabs-tts-tool $(ARGS)
 
 build: ## Build package
 	uv build
@@ -38,4 +38,4 @@ install-global: ## Install globally with uv tool
 	uv tool install . --reinstall
 
 uninstall-global: ## Uninstall global installation
-	uv tool uninstall elevenlabs-tty-tool
+	uv tool uninstall elevenlabs-tts-tool

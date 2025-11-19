@@ -9,7 +9,7 @@ import sys
 
 import click
 
-from elevenlabs_tty_tool.voices import VoiceManager
+from elevenlabs_tts_tool.voices import VoiceManager
 
 
 @click.command(name="list-voices")

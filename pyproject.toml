@@ -1,5 +1,5 @@
 [project]
-name = "elevenlabs-tty-tool"
+name = "elevenlabs-tts-tool"
 version = "0.2.0"
 description = "Professional command-line tool for ElevenLabs text-to-speech synthesis"
 requires-python = ">=3.13"
@@ -14,7 +14,7 @@ license = {text = "MIT"}
 readme = "README.md"
 
 [project.scripts]
-elevenlabs-tty-tool = "elevenlabs_tty_tool.cli:main"
+elevenlabs-tts-tool = "elevenlabs_tts_tool.cli:main"
 
 [build-system]
 requires = ["hatchling"]

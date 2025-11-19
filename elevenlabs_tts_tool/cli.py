@@ -1,4 +1,4 @@
-"""CLI entry point for elevenlabs-tty-tool.
+"""CLI entry point for elevenlabs-tts-tool.
 
 Note: This code was generated with assistance from AI coding tools
 and has been reviewed and tested by a human.
@@ -6,7 +6,7 @@ and has been reviewed and tested by a human.
 
 import click
 
-from elevenlabs_tty_tool.commands import (
+from elevenlabs_tts_tool.commands import (
     info,
     list_models,
     list_voices,
