@@ -596,6 +596,98 @@ export ELEVENLABS_API_KEY='your-api-key'
 
 Get your API key: https://elevenlabs.io/app/settings/api-keys
 
+### Shell Completion
+
+The tool provides built-in shell completion support for bash, zsh, and fish.
+
+**Implementation:**
+- Uses Click's built-in `ShellComplete` classes
+- Follows the `my-cli completion <shell>` pattern (like kubectl, helm, docker)
+- Provides self-documenting help with installation instructions
+
+**Generate completion scripts:**
+```bash
+# Bash
+elevenlabs-tts-tool completion bash
+
+# Zsh
+elevenlabs-tts-tool completion zsh
+
+# Fish
+elevenlabs-tts-tool completion fish
+```
+
+**Installation:**
+```bash
+# Bash (add to ~/.bashrc)
+eval "$(elevenlabs-tts-tool completion bash)"
+
+# Zsh (add to ~/.zshrc)
+eval "$(elevenlabs-tts-tool completion zsh)"
+
+# Fish (save to completion file)
+elevenlabs-tts-tool completion fish > ~/.config/fish/completions/elevenlabs-tts-tool.fish
+```
+
+**Code Location:**
+- Command: `elevenlabs_tts_tool/commands/completion_commands.py`
+- Uses: `click.shell_completion.BashComplete`, `ZshComplete`, `FishComplete`
+
+**Features:**
+- Tab-complete commands and subcommands
+- Tab-complete options and flags
+- Context-aware completion for file paths and choices
+- Self-documenting with `--help`
+
+### Verbosity and Logging
+
+The tool supports multi-level verbosity for progressive detail control:
+
+**Verbosity Levels:**
+- **No flag** (default): WARNING level - only critical issues
+- **`-v`**: INFO level - high-level operations, important events
+- **`-vv`**: DEBUG level - detailed operations, API calls, validation steps
+- **`-vvv`**: TRACE level - full HTTP requests/responses, ElevenLabs SDK internals
+
+**Implementation:**
+```python
+# Logging configuration in elevenlabs_tts_tool/logging_config.py
+from elevenlabs_tts_tool.logging_config import setup_logging, get_logger
+
+# Setup logging (called automatically by CLI group)
+setup_logging(verbose_count)  # 0, 1, 2, or 3+
+
+# Get logger in any module
+logger = get_logger(__name__)
+logger.info("High-level operation")
+logger.debug("Detailed operation step")
+logger.error("Error occurred")
+```
+
+**CLI Usage:**
+```bash
+# Quiet mode (warnings only)
+elevenlabs-tts-tool synthesize "Hello world"
+
+# INFO level
+elevenlabs-tts-tool -v synthesize "Hello world"
+
+# DEBUG level
+elevenlabs-tts-tool -vv synthesize "Hello world"
+
+# TRACE level (shows ElevenLabs SDK and HTTP client logs)
+elevenlabs-tts-tool -vvv synthesize "Hello world"
+```
+
+**Dependent Library Logging:**
+
+At trace level (`-vvv`), the following libraries enable DEBUG logging:
+- `elevenlabs` - ElevenLabs SDK internals
+- `httpx` / `httpcore` - HTTP request/response details
+- `urllib3` - Low-level HTTP operations
+
+This is configured in `logging_config.py:setup_logging()`.
+
 ### Voice Lookup Table
 
 The `voices_lookup.json` file contains 42 curated ElevenLabs premium voices with:

@@ -11,6 +11,9 @@ from datetime import datetime
 import click
 
 from elevenlabs_tts_tool.core.client import get_client
+from elevenlabs_tts_tool.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 @click.command()
@@ -52,12 +55,19 @@ def info(days: int) -> None:
         - Total usage for the period
     """
     try:
+        logger.info("Fetching subscription and usage information")
+        logger.debug(f"Historical usage period: {days} days")
+
         # Initialize client
+        logger.debug("Initializing ElevenLabs client")
         client = get_client()
 
         # Get subscription information
         click.echo("\nFetching subscription information...")
+        logger.debug("Calling API: client.user.subscription.get()")
         subscription = client.user.subscription.get()
+        logger.debug(f"Subscription tier: {subscription.tier}")
+        logger.debug(f"Subscription status: {subscription.status}")
 
         # Display subscription info
         click.echo("\n" + "=" * 80)

@@ -12,8 +12,11 @@ import click
 
 from elevenlabs_tts_tool.core.client import get_client
 from elevenlabs_tts_tool.core.synthesize import play_speech, read_from_stdin, save_speech
+from elevenlabs_tts_tool.logging_config import get_logger
 from elevenlabs_tts_tool.models import DEFAULT_MODEL, get_deprecation_warning, validate_model
 from elevenlabs_tts_tool.voices import VoiceManager
+
+logger = get_logger(__name__)
 
 
 @click.command()
@@ -26,7 +29,6 @@ from elevenlabs_tts_tool.voices import VoiceManager
 )
 @click.option(
     "--voice",
-    "-v",
     default="rachel",
     help="Voice name or ID (default: rachel)",
 )
@@ -114,45 +116,68 @@ def synthesize(
         Note: Emotional tags ([happy], [sad], etc.) only work with eleven_v3.
     """
     try:
+        logger.info("Starting text-to-speech synthesis")
+
         # Get text from stdin or argument
         if stdin:
+            logger.debug("Reading text from stdin")
             input_text = read_from_stdin()
+            logger.debug(f"Read {len(input_text)} characters from stdin")
         elif text:
             input_text = text
+            logger.debug(f"Using provided text ({len(input_text)} characters)")
         else:
+            logger.error("No text provided for synthesis")
             click.echo(
                 "Error: No text provided.\n"
                 "Provide text as argument or use --stdin flag.\n\n"
                 "Examples:\n"
-                "  elevenlabs-tty-tool synthesize 'Hello world'\n"
-                "  echo 'Hello world' | elevenlabs-tty-tool synthesize --stdin",
+                "  elevenlabs-tts-tool synthesize 'Hello world'\n"
+                "  echo 'Hello world' | elevenlabs-tts-tool synthesize --stdin",
                 err=True,
             )
             sys.exit(1)
 
         # Validate model
+        logger.debug(f"Validating model: {model}")
         model_id = validate_model(model)
+        logger.debug(f"Using model ID: {model_id}")
 
         # Show deprecation warning if needed
         warning = get_deprecation_warning(model_id)
         if warning:
+            logger.warning(f"Model deprecation: {warning}")
             click.echo(f"\n{warning}\n", err=True)
 
         # Initialize client and voice manager
+        logger.debug("Initializing ElevenLabs client")
         client = get_client()
+
+        logger.debug(f"Resolving voice: {voice}")
         voice_manager = VoiceManager()
         voice_id = voice_manager.get_voice_id(voice)
+        logger.debug(f"Using voice ID: {voice_id}")
 
         # Synthesize and play or save
         if output:
+            logger.info(f"Synthesizing and saving to: {output}")
+            logger.debug(f"Output format: {format}")
             save_speech(client, input_text, voice_id, output, format, model_id)
+            logger.info(f"Audio saved successfully to: {output}")
             click.echo(f"Audio saved to: {output}")
         else:
+            logger.info("Synthesizing and playing through speakers")
+            logger.debug(f"Output format: {format}")
             play_speech(client, input_text, voice_id, format, model_id)
+            logger.info("Playback completed successfully")
 
     except ValueError as e:
+        logger.error(f"Validation error: {e}")
+        logger.debug("Full traceback:", exc_info=True)
         click.echo(f"Error: {e}", err=True)
         sys.exit(1)
     except Exception as e:
+        logger.error(f"Synthesis failed: {type(e).__name__}: {e}")
+        logger.debug("Full traceback:", exc_info=True)
         click.echo(f"Error: {e}", err=True)
         sys.exit(1)

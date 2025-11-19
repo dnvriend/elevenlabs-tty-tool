@@ -13,6 +13,9 @@ from typing import Any
 import click
 
 from elevenlabs_tts_tool.core.client import get_client
+from elevenlabs_tts_tool.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 @click.command(name="update-voices")
@@ -47,21 +50,28 @@ def update_voices(output: Path | None) -> None:
         Only updates premade voices (not custom cloned voices).
     """
     try:
+        logger.info("Updating voice lookup table from ElevenLabs API")
+
         # Initialize client
+        logger.debug("Initializing ElevenLabs client")
         client = get_client()
 
         # Determine output path
         if output is None:
-            config_dir = Path.home() / ".config" / "elevenlabs-tty-tool"
+            config_dir = Path.home() / ".config" / "elevenlabs-tts-tool"
+            logger.debug(f"Using default config directory: {config_dir}")
             config_dir.mkdir(parents=True, exist_ok=True)
             output = config_dir / "voices_lookup.json"
 
+        logger.info(f"Output file: {output}")
         click.echo("Fetching voices from ElevenLabs API...")
 
         # Fetch premade voices
+        logger.debug("Calling API: client.voices.search(category='premade')")
         response = client.voices.search(
             category="premade", page_size=100, sort="name", sort_direction="asc"
         )
+        logger.debug(f"Received {len(response.voices)} voices from API")
 
         voice_data: dict[str, Any] = {}
 

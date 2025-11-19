@@ -17,6 +17,8 @@ A command-line tool for ElevenLabs text-to-speech synthesis with human-friendly 
 - [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
+  - [Shell Completion](#shell-completion)
+  - [Verbosity Levels](#verbosity-levels)
 - [Usage](#usage)
   - [Synthesize Command](#synthesize-command)
   - [List Voices](#list-voices)
@@ -130,6 +132,70 @@ echo 'export ELEVENLABS_API_KEY="your-api-key"' >> ~/.zshrc
 ```
 
 Get your API key from: https://elevenlabs.io/app/settings/api-keys
+
+### Shell Completion
+
+Enable tab completion for bash, zsh, or fish shells:
+
+**Bash** (add to `~/.bashrc`):
+```bash
+eval "$(elevenlabs-tts-tool completion bash)"
+```
+
+**Zsh** (add to `~/.zshrc`):
+```bash
+eval "$(elevenlabs-tts-tool completion zsh)"
+```
+
+**Fish** (save to completion file):
+```bash
+mkdir -p ~/.config/fish/completions
+elevenlabs-tts-tool completion fish > ~/.config/fish/completions/elevenlabs-tts-tool.fish
+```
+
+**For better performance**, save completion to a file:
+```bash
+# Bash
+elevenlabs-tts-tool completion bash > ~/.elevenlabs-tts-tool-complete.bash
+echo 'source ~/.elevenlabs-tts-tool-complete.bash' >> ~/.bashrc
+
+# Zsh
+elevenlabs-tts-tool completion zsh > ~/.elevenlabs-tts-tool-complete.zsh
+echo 'source ~/.elevenlabs-tts-tool-complete.zsh' >> ~/.zshrc
+```
+
+Once installed, you can tab-complete commands, options, and even voice names!
+
+### Verbosity Levels
+
+Control logging output with progressive verbosity levels:
+
+```bash
+# Default (WARNING only) - quiet mode
+elevenlabs-tts-tool synthesize "Hello world"
+
+# -v (INFO) - show high-level operations
+elevenlabs-tts-tool -v synthesize "Hello world"
+
+# -vv (DEBUG) - show detailed steps, API calls, validation
+elevenlabs-tts-tool -vv synthesize "Hello world"
+
+# -vvv (TRACE) - show full API requests/responses, library internals
+elevenlabs-tts-tool -vvv synthesize "Hello world"
+```
+
+**Verbosity Breakdown:**
+- **No flag** (default): Only warnings and errors
+- **`-v`**: INFO level - operation status, file names, progress
+- **`-vv`**: DEBUG level - validation steps, API call details, timing
+- **`-vvv`**: TRACE level - full HTTP requests/responses, ElevenLabs SDK internals
+
+**Note:** Verbosity applies to all commands:
+```bash
+elevenlabs-tts-tool -v list-voices      # INFO level
+elevenlabs-tts-tool -vv list-models     # DEBUG level
+elevenlabs-tts-tool -vvv info           # TRACE level with API details
+```
 
 ## Usage
 

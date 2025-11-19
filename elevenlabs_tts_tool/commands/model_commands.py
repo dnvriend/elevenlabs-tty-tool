@@ -7,7 +7,10 @@ and has been reviewed and tested by a human.
 
 import click
 
+from elevenlabs_tts_tool.logging_config import get_logger
 from elevenlabs_tts_tool.models import AVAILABLE_MODELS, DEFAULT_MODEL
+
+logger = get_logger(__name__)
 
 
 @click.command()
@@ -34,6 +37,9 @@ def list_models() -> None:
         # Find ultra-low latency models
         elevenlabs-tty-tool list-models | grep -i "ultra-low"
     """
+    logger.info("Listing available TTS models")
+    logger.debug(f"Total models in registry: {len(AVAILABLE_MODELS)}")
+
     # Group models by status
     current_gen = []
     legacy = []
@@ -43,6 +49,9 @@ def list_models() -> None:
             current_gen.append((model_id, info))
         else:
             legacy.append((model_id, info))
+
+    logger.debug(f"Current generation models: {len(current_gen)}")
+    logger.debug(f"Legacy models: {len(legacy)}")
 
     # Display current generation models
     click.echo("\nCurrent Generation Models:\n")
