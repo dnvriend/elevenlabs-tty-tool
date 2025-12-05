@@ -44,10 +44,12 @@ run: ## Run elevenlabs-tts-tool (usage: make run ARGS="...")
 	uv run elevenlabs-tts-tool $(ARGS)
 
 build: ## Build package
-	uv build
+	uv build --force-pep517
 
 install-global: ## Install globally with uv tool
-	uv tool install . --reinstall
+	uv tool uninstall elevenlabs-tts-tool || true
+	uv build --force-pep517
+	uv tool install .
 
 uninstall-global: ## Uninstall global installation
 	uv tool uninstall elevenlabs-tts-tool

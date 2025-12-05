@@ -12,6 +12,37 @@ authors = [
 ]
 license = {text = "MIT"}
 readme = "README.md"
+keywords = [
+    "elevenlabs",
+    "tts",
+    "text-to-speech",
+    "speech-synthesis",
+    "voice-generation",
+    "ai-voice",
+    "cli",
+    "command-line",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/dnvriend/elevenlabs-tts-tool"
+Repository = "https://github.com/dnvriend/elevenlabs-tts-tool"
+Issues = "https://github.com/dnvriend/elevenlabs-tts-tool/issues"
+Changelog = "https://github.com/dnvriend/elevenlabs-tts-tool/releases"
 
 [project.scripts]
 elevenlabs-tts-tool = "elevenlabs_tts_tool.cli:main"
