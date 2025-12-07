@@ -6,6 +6,7 @@ requires-python = ">=3.13"
 dependencies = [
     "click>=8.1.7",
     "elevenlabs>=1.0.0",
+    "urllib3>=2.6.0",  # Security fix for GHSA-gm62-xv2j-4w53, GHSA-2xpw-w6gg-jr37
 ]
 authors = [
     {name = "Dennis Vriend", email = "dvriend@ilionx.com"}
